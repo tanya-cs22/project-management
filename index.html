@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #product-list li {
+      margin: 5px 0;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Search Products</h2>
+  <form id="search-form">
+    <input type="text" id="search-input" placeholder="Enter product name" />
+    <button type="submit">Search</button>
+    <div class="error" id="error-msg"></div>
+  </form>
+
+  <ul id="product-list">
+    <li data-name="Apple iPhone">Apple iPhone</li>
+    <li data-name="Samsung Galaxy">Samsung Galaxy</li>
+    <li data-name="Sony Headphones">Sony Headphones</li>
+    <li data-name="Dell Laptop">Dell Laptop</li>
+    <li data-name="HP Printer">HP Printer</li>
+  </ul>
+
+  <script>
+    const form = document.getElementById('search-form');
+    const input = document.getElementById('search-input');
+    const errorMsg = document.getElementById('error-msg');
+    const productList = document.querySelectorAll('#product-list li');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const searchTerm = input.value.trim().toLowerCase();
+
+      // Validate input
+      if (!searchTerm) {
+        errorMsg.textContent = "Search field cannot be empty!";
+        return;
+      } else {
+        errorMsg.textContent = "";
+      }
+
+      
+      productList.forEach(item => {
+        const productName = item.getAttribute('data-name').toLowerCase();
+        item.style.display = productName.includes(searchTerm) ? "list-item" : "none";
+      });
+    });
+  </script>
+
+</body>
+</html>
